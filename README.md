@@ -16,3 +16,6 @@ Open the command prompt and run the class
 ```bash
 java Runner.java
 ```
+
+### Output example
+![immagine](https://github.com/alezz00/portfolio-backtest/assets/165487464/26a183ec-e938-491a-bf35-295844b1989f)

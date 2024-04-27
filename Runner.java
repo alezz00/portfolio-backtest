@@ -5,13 +5,11 @@ import java.io.FileReader;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.function.Predicate;
 
 public class Runner {
 
@@ -53,7 +51,7 @@ public class Runner {
 		for (final IndexSnapshot snapshot : records) {
 
 			// search the end date (gap=6 ---> 2004->2010)
-			final IndexSnapshot next = find(records, rec -> Objects.equals(rec.date, snapshot.date.plusYears(years)));
+			final IndexSnapshot next = records.stream().filter(rec -> Objects.equals(rec.date, snapshot.date.plusYears(years))).findFirst().orElse(null);
 			if (next == null) { break; }
 
 			final int percentageDifference = (next.price * 100 / snapshot.price) - 100;
@@ -61,9 +59,11 @@ public class Runner {
 			final String sign = percentageDifference > 0 ? "+" : "";
 			System.out.println(snapshot.date + " -> " + next.date + " -> " + sign + percentageDifference + "%");
 			percentageDifferences.add(percentageDifference);
-		} // for
+		}
 
-		final int positivePeriods = filteredList(percentageDifferences, g -> g > 0).size();
+		;
+
+		final long positivePeriods = percentageDifferences.stream().map(val -> val > 0).count();
 		final int average = (int) percentageDifferences.stream().mapToInt(a -> a).average().getAsDouble();
 		final int standardDeviation = standardDeviation(percentageDifferences);
 
@@ -117,55 +117,7 @@ public class Runner {
 		return (int) Math.sqrt(standardDeviation / list.size());
 	}
 
-	private static <T> T find(final Collection<T> collection, final Predicate<? super T> predicate) {
-		if (collection == null) {
-			return null;
-		}
-
-		for (final T elem : collection) {
-			if (predicate.test(elem)) {
-				return elem;
-			}
-		}
-
-		return null;
-	}
-
-	private static <T> List<T> filteredList(final Collection<T> collection, final Predicate<? super T> predicate) {
-		final List<T> filtered = new ArrayList<>();
-		if (collection == null) {
-			return filtered;
-		}
-
-		for (final T elem : collection) {
-			if (predicate.test(elem)) {
-				filtered.add(elem);
-			}
-		}
-
-		return filtered;
-	}
-
-	/**
-	 * Snapshot of the price of an index at a certain date
-	 */
-	private static class IndexSnapshot {
-
-		public LocalDate date;
-
-		public int price;
-
-		public IndexSnapshot(LocalDate date, int price) {
-			super();
-			this.date = date;
-			this.price = price;
-		}
-
-		@Override
-		public String toString() {
-			return "IndexSnapshot [date=" + date + ", price=" + price + "]";
-		}
-
+	private static record IndexSnapshot(LocalDate date, int price) {
 	}
 
 }

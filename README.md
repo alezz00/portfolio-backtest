@@ -9,13 +9,15 @@ You can create your custom portfolio [here](https://curvo.eu/backtest) and expor
 
 ## Running
 
-Use java 17 or newer.
+Download it [here](https://github.com/alezz00/portfolio-backtest/releases/download/Latest/portfolio-backtest.zip) and launch run.bat!
 
-Open the command prompt and run the class
+### For developers
+
+If you have java installed and want to play with it you can directly download the source code, modify it and execute it by command prompt
 
 ```bash
 java Runner.java
 ```
 
-### Output example
-![immagine](https://github.com/alezz00/portfolio-backtest/assets/165487464/26a183ec-e938-491a-bf35-295844b1989f)
+## Output example
+![immagine](https://github.com/alezz00/portfolio-backtest/assets/165487464/d7173daa-116c-4526-a1f3-d5bf7789d278)

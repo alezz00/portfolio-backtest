@@ -1,6 +1,6 @@
 # portfolio-backtest
 
-This is a simple main class to extract some basic statistics from the history of a portfolio
+This is a simple main class to extract some basic statistics from the history of a financial portfolio
 
 ## Data
 

@@ -93,9 +93,7 @@ public class Runner {
 			percentageDifferences.add(percentageDifference);
 		}
 
-		;
-
-		final long positivePeriods = percentageDifferences.stream().map(val -> val > 0).count();
+		final long positivePeriods = percentageDifferences.stream().filter(val -> val > 0).count();
 		final int average = (int) percentageDifferences.stream().mapToInt(a -> a).average().getAsDouble();
 		final int standardDeviation = standardDeviation(percentageDifferences);
 

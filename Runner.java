@@ -62,8 +62,15 @@ public class Runner {
 				if (firstLine) { firstLine = false; continue; } // skip the first line with the name
 				final String[] values = line.split(",");
 				final String stringedDate = values[0];
-				final int year = Integer.valueOf(stringedDate.substring(0, 4));
-				final int month = Integer.valueOf(stringedDate.substring(5));
+				int year = 0;
+				int month = 0;
+				if (Objects.equals(stringedDate.indexOf("/"), 2)) {
+					year = Integer.valueOf(stringedDate.substring(3));
+					month = Integer.valueOf(stringedDate.substring(0, 2));
+				} else {
+					year = Integer.valueOf(stringedDate.substring(0, 4));
+					month = Integer.valueOf(stringedDate.substring(5));
+				}
 				final LocalDate date = LocalDate.of(year, month, 1);
 				final int price = BigDecimal.valueOf(Double.valueOf(values[1])).intValue();
 
